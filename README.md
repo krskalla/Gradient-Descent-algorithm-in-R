@@ -78,6 +78,8 @@ m2<-lm(y~.,data=df)
 (Intercept)          x1          x2          x3          x4          x5 
    0.000000   -0.006319    0.004955    0.011333    0.014451   -0.023478
 
+library(gradDescent)
+
 m1=GD(df,alpha=0.05,maxIter=5000,seed=NULL)
 > round(m1,6)
      [,1]      [,2]     [,3]     [,4]     [,5]      [,6]
