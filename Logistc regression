@@ -1,0 +1,69 @@
+
+#=====================================================
+#****Gradient Descent algorithm for classification****
+#=====================================================
+
+
+```{r}
+cost_function<-function(x,y,theta)
+{
+  cost <- sum( (y*log(1/(1+exp(-x%*%theta))))+((1-y)%*%log(1-(1/(1+exp(-x%*%theta))))))
+  return(cost)
+}
+
+logit_reg<-function(x,y,theta=NULL,learn=0.05,epsilon=0.000005,niter=5000)
+{
+  if(!is.matrix(x))
+  x = as.matrix(x)
+
+  if(!is.matrix(y))
+  y = as.matrix(y)
+
+  if(is.null(theta))
+  {
+     theta = matrix(rnorm(ncol(x)),nrow=ncol(x))
+  }else{
+    if(ncol(theta)!=1)
+    theta<-matrix(theta,ncol=1)
+  }
+
+  theta_hist <- list()
+  theta_hist[[1]]<-theta
+  SSE<-cost_f(x,y,theta)
+  
+  for(i in 2:niter)
+  {
+    error = y - 1/(1+exp(-x%*%theta))
+    delta = t(x)%*%error
+    theta = theta + learn*(1/nrow(x))*delta
+    SSE<-c(SSE,cost_f(x,y,theta))
+    theta_hist[[i]]=theta
+    if((SSE[i-1]-SSE[i])<=epsilon)
+    break
+  }
+  return(list(theta=round(theta[,1],4),SSE=SSE,theta_hist=theta_hist,No.Of.Iters=i))
+}
+
+# Preparing mock up data.
+x1 = rnorm(n = 10000, mean = 0, sd = 1)
+x2 = rnorm(n = 10000, mean = 10, sd = 1)
+x3 = rnorm(n = 10000, mean = 0, sd = 10)
+x4 = rnorm(n = 10000, mean = 200, sd = 100)
+x5 = rnorm(n = 10000, mean = 5, sd = 5)
+
+# Scaling Independent variables.
+x =scale(as.matrix( data.frame(x1,x2,x3, x4,x5)))
+
+y =as.matrix( sample(c(0,1),10000,T),ncol=1)
+
+# Calling logit function
+out1 = logit_reg(x=cbind(Int=1,x),y)
+
+# Now I would like to compare gradient descent algorithm outputs and glm outputs.
+df=data.frame(cbind(x,y=y))
+names(df)[ncol(df)]<-"y"
+m2 = glm(y~.,data=df,family="binomial")
+
+# After comparing both the outputs, we can say that both the models are producing the same output.
+
+```
