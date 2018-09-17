@@ -1,10 +1,11 @@
 
+```{r}
+
 #=====================================================
 #****Gradient Descent algorithm for classification****
 #=====================================================
 
 
-```{r}
 cost_function<-function(x,y,theta)
 {
   cost <- sum( (y*log(1/(1+exp(-x%*%theta))))+((1-y)%*%log(1-(1/(1+exp(-x%*%theta))))))
