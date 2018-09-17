@@ -1,8 +1,10 @@
 # Gradient-Descent-algorithm-in-R
 Compare Gradient Descent with OLS
-```{r}
 
 ```{r}
+#=====================================================
+#****Gradient Descent algorithm for linear Regression****
+#=====================================================
 # Loading Gradient descent algorithm.
 library(gradDescent)
 
@@ -87,7 +89,7 @@ m1=GD(df,alpha=0.05,maxIter=5000,seed=NULL)
 
 
 #=====================================================
-#****Gradient Descent algorithm for classification****
+#****Gradient Descent algorithm for Logistic Regression****
 #=====================================================
 
 
