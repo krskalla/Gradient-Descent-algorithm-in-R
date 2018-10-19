@@ -1,5 +1,4 @@
 # Gradient-Descent-algorithm-in-R
-Compare Gradient Descent with OLS
 
 ```{r}
 #==============================Batch Gradient descent algorithm========================
